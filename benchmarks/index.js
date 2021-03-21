@@ -1,65 +1,33 @@
 const execa = require("execa");
 const delay = require("delay");
 const { createFiles, deleteFiles } = require("./helpers");
+const pMap = require("p-map");
+const pProps = require("p-props");
 
-async function benchmark() {
+const subjects = {
+  ava: "../node_modules/.bin/ava './ava/*.spec.js'",
+  jasmine: "../node_modules/.bin/jasmine ./jasmine/**",
+  jest: "../node_modules/.bin/jest ./jest",
+  mocha: "../node_modules/.bin/mocha ./mocha",
+  pta: "../node_modules/.bin/pta --module-loader cjs ./pta/**",
+  tap: "../node_modules/.bin/tap --no-cov --reporter=classic ./tap",
+  tape: "../node_modules/.bin/tape ./tape/**",
+  uvu: "../node_modules/.bin/uvu ./uvu/",
+};
+
+async function benchmarkTestRunners() {
   process.chdir(__dirname);
+  await pMap(Object.keys(subjects), createFiles);
+  await pProps(subjects, benchmark, { concurrency: 1 });
+  await pMap(Object.keys(subjects), deleteFiles);
+}
 
-  const options = {
-    stdio: "inherit",
-  };
-
-  await createFiles("ava");
-  await execa(
-    "hyperfine",
-    ["../node_modules/.bin/ava './ava/*.spec.js'"],
-    options
-  );
-  await deleteFiles("ava");
-
-  await createFiles("jasmine");
-  await execa(
-    "hyperfine",
-    ["../node_modules/.bin/jasmine ./jasmine/**"],
-    options
-  );
-  await deleteFiles("jasmine");
-
-  await createFiles("jest");
-  await execa("hyperfine", ["../node_modules/.bin/jest ./jest"], options);
-  await deleteFiles("jest");
-
-  await createFiles("mocha");
-  await execa("hyperfine", ["../node_modules/.bin/mocha ./mocha"], options);
-  await deleteFiles("mocha");
-
-  await createFiles("pta");
-  await execa(
-    "hyperfine",
-    ["../node_modules/.bin/pta --module-loader cjs ./pta/**"],
-    options
-  );
-  await deleteFiles("pta");
-
-  await createFiles("tap");
-  await execa(
-    "hyperfine",
-    ["../node_modules/.bin/tap --no-cov --reporter=classic ./tap"],
-    options
-  );
-  await deleteFiles("tap");
-
-  await createFiles("tape");
-  await execa("hyperfine", ["../node_modules/.bin/tape ./tape/**"], options);
-  await deleteFiles("tape");
-
-  await createFiles("uvu");
-  await execa("hyperfine", ["../node_modules/.bin/uvu ./uvu/"], options);
-  await deleteFiles("uvu");
+async function benchmark(command) {
+  await execa("hyperfine", [command], { stdio: "inherit" });
 }
 
 (async function () {
-  await benchmark();
+  await benchmarkTestRunners();
 })().catch((err) => {
   console.error("Something went wrong!");
   console.error(err);
