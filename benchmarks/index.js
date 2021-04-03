@@ -5,23 +5,21 @@ const { createFiles, deleteFiles } = require("./helpers");
 
 process.chdir(__dirname);
 
+const common = ["-i", "--warmup", 10];
+
 const subjects = {
-  ava: ["--warmup", 10, "../node_modules/.bin/ava './ava/*.spec.js'"],
-  jasmine: ["--warmup", 10, "../node_modules/.bin/jasmine ./jasmine/**"],
-  jest: ["--warmup", 10, "../node_modules/.bin/jest ./jest"],
-  mocha: ["--warmup", 10, "../node_modules/.bin/mocha ./mocha"],
-  pta: [
-    "--warmup",
-    10,
-    "../node_modules/.bin/pta --module-loader cjs ./pta/**",
-  ],
-  tap: [
-    "--warmup",
-    10,
-    "../node_modules/.bin/tap --no-cov --reporter=classic ./tap",
-  ],
-  tape: ["--warmup", 10, "../node_modules/.bin/tape ./tape/**"],
-  uvu: ["--warmup", 10, "../node_modules/.bin/uvu ./uvu/"],
+  // ava: common.concat(
+  //   "../node_modules/.bin/ava --fail-fast false './ava/*.spec.js'"
+  // ),
+  jasmine: common.concat("../node_modules/.bin/jasmine ./jasmine/**"),
+  // jest: common.concat("../node_modules/.bin/jest ./jest"),
+  // mocha: common.concat("../node_modules/.bin/mocha ./mocha"),
+  pta: common.concat("../node_modules/.bin/pta --module-loader cjs ./pta/**"),
+  // tap: common.concat(
+  //   "../node_modules/.bin/tap --no-cov --reporter=classic ./tap"
+  // ),
+  tape: common.concat("../node_modules/.bin/tape ./tape/**"),
+  uvu: common.concat("../node_modules/.bin/uvu ./uvu/"),
 };
 
 async function benchmarkTestRunners() {
@@ -31,7 +29,7 @@ async function benchmarkTestRunners() {
 }
 
 async function benchmark(command) {
-  await delay(7000);
+  await delay(3000);
   await execa("hyperfine", command, { stdio: "inherit" });
 }
 

@@ -1,35 +1,31 @@
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+const { asyncDeepObject } = require("../exercise");
+
+it("Passed async Truthy", async () => {
+  expect(true).toBeTruthy();
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Failed async truthy", async () => {
+  expect(false).toBeTruthy();
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Passed async equal", async () => {
+  expect("Javascript Test Runner Benchmark").toBe(
+    "Javascript Test Runner Benchmark"
+  );
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Failed async equal", async () => {
+  expect("Javascript Test Runner Benchmark").toBe("");
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Passed async deep object", async () => {
+  const obj1 = await asyncDeepObject();
+  const obj2 = await asyncDeepObject();
+  expect(obj1).toEqual(obj2);
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Failed async deep object", async () => {
+  const obj1 = await asyncDeepObject("Samuel L Jackson");
+  const obj2 = await asyncDeepObject("Tom Hanks");
+  expect(obj1).toEqual(obj2);
 });

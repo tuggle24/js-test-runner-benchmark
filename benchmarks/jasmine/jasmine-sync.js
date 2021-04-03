@@ -1,35 +1,31 @@
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+const { syncDeepObject } = require("../exercise");
+
+it("Passed sync Truthy", () => {
+  expect(true).toBeTruthy();
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Failed sync truthy", () => {
+  expect(false).toBeTruthy();
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Passed sync equal", () => {
+  expect("Javascript Test Runner Benchmark").toBe(
+    "Javascript Test Runner Benchmark"
+  );
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Failed sync equal", () => {
+  expect("Javascript Test Runner Benchmark").toBe("");
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Passed sync deep object", () => {
+  const obj1 = syncDeepObject();
+  const obj2 = syncDeepObject();
+  expect(obj1).toEqual(obj2);
 });
 
-describe("A suite", function () {
-  it("contains spec with an expectation", function () {
-    expect(true).toBe(true);
-  });
+it("Failed sync deep object", () => {
+  const obj1 = syncDeepObject("Samuel L Jackson");
+  const obj2 = syncDeepObject("Tom Hanks");
+  expect(obj1).toEqual(obj2);
 });

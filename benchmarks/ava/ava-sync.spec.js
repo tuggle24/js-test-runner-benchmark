@@ -1,10 +1,30 @@
 const test = require("ava");
+const { syncDeepObject } = require("../exercise");
 
-test("foo", (t) => {
-  t.pass();
+test("Passed sync Truthy", (t) => {
+  t.truthy(true);
 });
 
-test("bar", async (t) => {
-  const bar = Promise.resolve("bar");
-  t.is(await bar, "bar");
+test("Failed sync truthy", (t) => {
+  t.truthy(false);
+});
+
+test("Passed sync equal", (t) => {
+  t.is("Javascript Test Runner Benchmark", "Javascript Test Runner Benchmark");
+});
+
+test("Failed sync equal", (t) => {
+  t.is("Javascript Test Runner Benchmark", "");
+});
+
+test("Passed sync deep object", (t) => {
+  const obj1 = syncDeepObject();
+  const obj2 = syncDeepObject();
+  t.deepEqual(obj1, obj2);
+});
+
+test("Failed sync deep object", (t) => {
+  const obj1 = syncDeepObject("Samuel L Jackson");
+  const obj2 = syncDeepObject("Tom Hanks");
+  t.deepEqual(obj1, obj2);
 });

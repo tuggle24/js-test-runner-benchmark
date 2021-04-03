@@ -5,7 +5,7 @@ const exitHook = require("exit-hook");
 const argv = require("minimist");
 
 async function createFiles(subject) {
-  const { copies = 10 } = argv(process.argv.slice(2));
+  const { copies = 5 } = argv(process.argv.slice(2));
 
   await pTimes(copies, async (i) => {
     await cpy([`./${subject}/${subject}*.js`], `${subject}`, {
