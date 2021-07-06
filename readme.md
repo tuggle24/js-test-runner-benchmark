@@ -1,4 +1,3 @@
-The value of this benchmark is not in the ram timings. In fact, the raw timings are misleading if not useless. Now, I will not admit that there is no value to this benchmark however I must admit that this benchmark has serious
-The value of this benchmark is not in the timings 
+Currently this readme is a work in progress. 
 
-For the most part, I attempted to keep my opinions out of this benchmark but I beleive it is important to give a little perspective. This benchmark should not be used as key evidence to chose one test runner over another. This benchmark has serious issues, most of which were unavoidable. Flawed evidence is worse than no evidence. The value of this benchmark is not in the timings themselves, espeacilly comparing timings is pointless but looking at the individual timings can be valuable. So 
+You can checkout this repo and run the benchmark given you have hyperfine installed.
