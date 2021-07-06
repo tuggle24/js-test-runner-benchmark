@@ -8,16 +8,16 @@ process.chdir(__dirname);
 const common = ["-i", "--warmup", 10];
 
 const subjects = {
-  // ava: common.concat(
-  //   "../node_modules/.bin/ava --fail-fast false './ava/*.spec.js'"
-  // ),
+  ava: common.concat(
+    "../node_modules/.bin/ava --fail-fast false './ava/*.spec.js'"
+  ),
   jasmine: common.concat("../node_modules/.bin/jasmine ./jasmine/**"),
-  // jest: common.concat("../node_modules/.bin/jest ./jest"),
-  // mocha: common.concat("../node_modules/.bin/mocha ./mocha"),
+  jest: common.concat("../node_modules/.bin/jest ./jest"),
+  mocha: common.concat("../node_modules/.bin/mocha ./mocha"),
   pta: common.concat("../node_modules/.bin/pta --module-loader cjs ./pta/**"),
-  // tap: common.concat(
-  //   "../node_modules/.bin/tap --no-cov --reporter=classic ./tap"
-  // ),
+  tap: common.concat(
+    "../node_modules/.bin/tap --no-cov --reporter=classic ./tap"
+  ),
   tape: common.concat("../node_modules/.bin/tape ./tape/**"),
   uvu: common.concat("../node_modules/.bin/uvu ./uvu/"),
 };
